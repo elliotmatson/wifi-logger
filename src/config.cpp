@@ -48,9 +48,12 @@ static const char *NVS_NS = CFG_NVS_NAMESPACE;
 String chipIdSuffix()
 {
     uint64_t mac = ESP.getEfuseMac();
-    // Last 24 bits of the MAC, hex, uppercase, zero-padded to 6 chars.
+    // ESP.getEfuseMac() packs the 48-bit MAC into a 64-bit integer.
+    // Use bits 24..47 so we get the device-specific bytes, not the common OUI.
+    uint32_t suffix = (uint32_t)((mac >> 24) & 0xFFFFFFULL);
+
     char buf[7];
-    snprintf(buf, sizeof(buf), "%06X", (uint32_t)(mac & 0xFFFFFF));
+    snprintf(buf, sizeof(buf), "%06X", suffix);
     return String(buf);
 }
 

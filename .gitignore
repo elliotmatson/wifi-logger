@@ -1,0 +1,14 @@
+.pio/
+.pioenvs/
+.piolibdeps/
+managed_components/
+.vscode/
+.idea/
+.cache/
+*.swp
+*.swo
+*.bak
+.DS_Store
+
+# Local defaults/secrets (WiFi + Influx)
+*secrets.h
